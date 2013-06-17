@@ -9,11 +9,11 @@ package
 	import starling.core.Starling;
 	
 	[SWF(frameRate="60", width="800", height="480", backgroundColor="0x000000")]
-	public class tapper extends Sprite
+	public class Tapper extends Sprite
 	{
 		private var _starling:Starling;
 		
-		public function tapper()
+		public function Tapper()
 		{
 			super();
 			
