@@ -12,6 +12,9 @@ package resources
 		[Embed(source="../../assets/graphics/table.png")]
 		public static const Table:Class;
 		
+		[Embed(source="../../assets/graphics/mug.png")]
+		public static const Mug:Class;
+		
 		private static var gameTexture:Dictionary = new Dictionary();
 		private static var gameTextureAtlas : TextureAtlas;
 	
