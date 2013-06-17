@@ -1,5 +1,7 @@
 package
 {
+	import screens.InGameScreen;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -14,6 +16,14 @@ package
 		private function onAddedToStage():void
 		{
 			this.removeEventListener(starling.events.Event.ADDED_TO_STAGE , onAddedToStage);
+			
+			initTestGame();
+		}
+		
+		private function initTestGame():void
+		{
+			var inGame:InGameScreen = new InGameScreen();
+			addChild(inGame);
 		}
 	}
 }
