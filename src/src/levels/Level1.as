@@ -1,5 +1,6 @@
 package levels
 {
+	import objects.Mug;
 	import objects.Table;
 	
 	import starling.display.Sprite;
@@ -21,7 +22,8 @@ package levels
 		
 		private function AddMug():void
 		{
-			
+			var mug:Mug = new Mug();
+			addChild(mug);
 		}
 		
 		private function addTable():void
