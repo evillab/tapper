@@ -24,7 +24,7 @@ package objects
 			this.addChild(tableImage);
 		}
 		
-		//// interface do obsługi zdarzeń kufla
+		//// interface do obsługi stanów kufla
 		 
 		/**
 		 * pokaż pełen kufel (jak idzie do klienta)

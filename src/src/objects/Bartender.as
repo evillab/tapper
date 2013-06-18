@@ -23,7 +23,49 @@ package objects
 			var tableImage:Image = new Image(Assets.getTexture("Bartender"));
 			this.addChild(tableImage);
 		}
-		///interface obslugujacy barmana
+		///interface do bsługi stanów barmana
+		/**
+		 * stoi - default
+		 */
+		public function standAnim():void
+		{
+			
+		}
+		/**
+		 * barman przemieszcza się pomiędzy stołami, wraca do początku stołu (szybka animacja)
+		 */		
+		public function smokeAnim():void
+		{
+			
+		}
+		/**
+		 * bieg po pusty kufel, napiwki (animacja z prawej do lewej)
+		 */
+		public function runAnim():void
+		{
+			
+		}
+		/**
+		 * nalewanie kufla (daje dispatch jak jest pełny)
+		 */
+		public function fillMugAnim():void
+		{
+			
+		}
+		/**
+		 * animacja wygranego poziomu
+		 */
+		public function levelWinAnim():void
+		{
+			
+		}
+		/**
+		 * animacja przegranego poziomu
+		 */
+		public function levelLostAnim():void
+		{
+			
+		}
 		
 	}
 	
