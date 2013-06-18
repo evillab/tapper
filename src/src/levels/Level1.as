@@ -1,5 +1,7 @@
 package levels
 {
+	import events.CustomTouchEvent;
+	
 	import levels.LevelsProperties;
 	
 	import objects.Bartender;
@@ -8,10 +10,13 @@ package levels
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
 
 	public class Level1 extends Sprite
 	{
 		private var _tables:Vector.<Table> = new Vector.<Table>;
+
+		private var _bartender:Bartender;
 		
 		public function Level1()
 		{
@@ -28,10 +33,10 @@ package levels
 		
 		private function addBartender():void
 		{
-			var bartender:Bartender = new Bartender();
-			bartender.x= stage.stageWidth/1.6;
-			bartender.y = stage.stageHeight/1.6;
-			addChild(bartender);	
+			_bartender = new Bartender();
+			_bartender.x= stage.stageWidth/1.6;
+			_bartender.y = stage.stageHeight/1.6;
+			addChild(_bartender);	
 		}
 		
 		private function AddMug():void
@@ -55,5 +60,17 @@ package levels
 				_tables.push(table);
 			}	
 		}
+
+		public function get bartender():Bartender
+		{
+			return _bartender;
+		}
+
+		public function set bartender(value:Bartender):void
+		{
+			_bartender = value;
+		}
+
+		
 	}
 }

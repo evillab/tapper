@@ -41,8 +41,7 @@ package objects
 		
 		private function tableTouched():void
 		{
-			trace("table");
-			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED , _tableNr));
+			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED , _tableNr , true));
 		}
 		
 		private function drawTap():void
@@ -60,8 +59,7 @@ package objects
 		
 		private function tapTouched():void
 		{
-			trace("tap");
-			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,_tableNr));
+			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,_tableNr , true));
 		}
 
 		public function set tableNr(value:uint):void

@@ -1,9 +1,12 @@
 package screens
 {
+	import events.CustomTouchEvent;
+	
 	import levels.*;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
 	
 	public class InGameScreen extends Sprite
 	{
@@ -19,6 +22,21 @@ package screens
 			
 			level1 = new Level1();
 			addChild(level1);
+	
+			level1.addEventListener(CustomTouchEvent.TABLE_TOUCHED , tableTouched);
+			level1.addEventListener(CustomTouchEvent.TAP_TOUCHED , tapTouched);
+			
+		}
+		
+		private function tapTouched(e:CustomTouchEvent):void
+		{
+			trace("tap nr: " + e.which);
+			level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
+		}
+		
+		private function tableTouched(e:CustomTouchEvent):void
+		{
+			trace("table nr: " + e.which);
 		}
 	}
 }
