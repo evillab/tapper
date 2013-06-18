@@ -7,6 +7,7 @@ package levels
 
 	public class Level1 extends Sprite
 	{
+		private var _tables:Vector.<Table> = new Vector.<Table>;
 		
 		public function Level1()
 		{
@@ -15,7 +16,8 @@ package levels
 		
 		private function onAddedToStage():void
 		{
-			addTable();
+			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
+			addTables();
 			AddMug();
 		}
 		
@@ -24,12 +26,17 @@ package levels
 			
 		}
 		
-		private function addTable():void
+		private function addTables():void
 		{
-			var table:Table = new Table();
-			table.x = 30;
-			table.y = 250;
-			addChild(table);
+			for(var i:uint =0; i< 4 ; i++)
+			{	
+				var table:Table = new Table();
+				table.x = 40;
+				table.y =50+ i*100;
+				addChild(table);
+				
+				_tables.push(table);
+			}	
 		}
 	}
 }
