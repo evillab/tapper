@@ -1,5 +1,7 @@
 package levels
 {
+	import levels.LevelsProperties;
+	
 	import objects.Mug;
 	import objects.Table;
 	
@@ -33,8 +35,8 @@ package levels
 			for(var i:uint =0; i< 4 ; i++)
 			{	
 				var table:Table = new Table();
-				table.x = 40;
-				table.y =50+ i*100;
+				table.x = LevelsProperties.tablesPositionX[i];
+				table.y = LevelsProperties.tablesPositionY[i];
 				addChild(table);
 				
 				_tables.push(table);
