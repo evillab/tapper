@@ -47,6 +47,7 @@ package levels
 			for(var i:uint =0; i< 4 ; i++)
 			{	
 				var table:Table = new Table();
+				table.tableNr = i;
 				table.x = LevelsProperties.tablesPositionX[i];
 				table.y = LevelsProperties.tablesPositionY[i];
 				addChild(table);
