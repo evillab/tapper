@@ -1,5 +1,7 @@
 package objects
 {
+	import events.CustomTouchEvent;
+	
 	import levels.LevelsProperties;
 	
 	import resources.Assets;
@@ -7,11 +9,13 @@ package objects
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
 	
 	public class Table extends Sprite
 	{
 		private var tableContainer:Sprite;
 		private var tapContainer:Sprite;
+		private var _tableNr:uint;
 		
 		public function Table():void
 		{
@@ -32,6 +36,13 @@ package objects
 			tableContainer.addChild(tableImage);
 			
 			addChild(tableContainer);
+			tableContainer.addEventListener(TouchEvent.TOUCH , tableTouched);
+		}
+		
+		private function tableTouched():void
+		{
+			trace("table");
+			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED , _tableNr));
 		}
 		
 		private function drawTap():void
@@ -44,6 +55,19 @@ package objects
 			tapContainer.x = tableContainer.width + LevelsProperties.spaceBetweenTableAndTap;
 			
 			addChild(tapContainer);
+			tapContainer.addEventListener(TouchEvent.TOUCH , tapTouched);
 		}
+		
+		private function tapTouched():void
+		{
+			trace("tap");
+			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,_tableNr));
+		}
+
+		public function set tableNr(value:uint):void
+		{
+			_tableNr = value;
+		}
+
 	}
 }
