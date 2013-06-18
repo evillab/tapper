@@ -1,5 +1,7 @@
 package levels
 {
+	import levels.LevelsProperties;
+	
 	import objects.Mug;
 	import objects.Table;
 	
@@ -8,6 +10,7 @@ package levels
 
 	public class Level1 extends Sprite
 	{
+		private var _tables:Vector.<Table> = new Vector.<Table>;
 		
 		public function Level1()
 		{
@@ -16,7 +19,8 @@ package levels
 		
 		private function onAddedToStage():void
 		{
-			addTable();
+			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
+			addTables();
 			AddMug();
 		}
 		
@@ -26,12 +30,17 @@ package levels
 			addChild(mug);
 		}
 		
-		private function addTable():void
+		private function addTables():void
 		{
-			var table:Table = new Table();
-			table.x = 30;
-			table.y = 250;
-			addChild(table);
+			for(var i:uint =0; i< 4 ; i++)
+			{	
+				var table:Table = new Table();
+				table.x = LevelsProperties.tablesPositionX[i];
+				table.y = LevelsProperties.tablesPositionY[i];
+				addChild(table);
+				
+				_tables.push(table);
+			}	
 		}
 	}
 }
