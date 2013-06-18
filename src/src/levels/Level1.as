@@ -2,6 +2,7 @@ package levels
 {
 	import levels.LevelsProperties;
 	
+	import objects.Bartender;
 	import objects.Mug;
 	import objects.Table;
 	
@@ -22,11 +23,22 @@ package levels
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			addTables();
 			AddMug();
+			addBartender();
+		}
+		
+		private function addBartender():void
+		{
+			var bartender:Bartender = new Bartender();
+			bartender.x= stage.stageWidth/1.6;
+			bartender.y = stage.stageHeight/1.6;
+			addChild(bartender);	
 		}
 		
 		private function AddMug():void
 		{
 			var mug:Mug = new Mug();
+			mug.x = stage.stageWidth/2;
+			mug.y = stage.stageHeight/2;
 			addChild(mug);
 		}
 		
