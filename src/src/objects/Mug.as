@@ -31,28 +31,35 @@ package objects
 		 */
 		public function showFull():void
 		{
-			
+			this.visible=true;
 		}
 		/**
 		 * pokaż pusty kufel (jak wraca od klienta)
 		 */
 		public function showEmpty():void
 		{
-			
+			this.visible=true;	
 		}
 		/**
 		 * rozbicie pelnego kufla o sciane (puszczony, brak klienta)
 		 */
 		public function crashFull():void
 		{
-			
+			this.visible=true;
 		}
 		/**
 		 * rozbicie pustego (wracał od klienta)
 		 */
 		public function crashEmpty():void
 		{
-			
+			this.visible=true;
+		}
+		/**
+		 * ukrycie kufla
+		 */
+		public function hide():void
+		{
+			this.visible=false;
 		}
 	}
 }
