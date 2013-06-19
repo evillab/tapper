@@ -11,6 +11,7 @@ package objects
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	
 	public class Table extends Sprite
 	{
@@ -47,8 +48,11 @@ package objects
 			var touches:Vector.<Touch> = e.touches;
 			if(touches.length)
 			{
-				var touchX:Number = (touches[0] as Touch).globalX;
-				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED,_tableNr, touchX , true));
+				if (e.touches[0].phase==TouchPhase.BEGAN || e.touches[0].phase == TouchPhase.ENDED)
+				{
+					var touchX:Number = (touches[0] as Touch).globalX;
+					dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED,e.touches[0].phase,_tableNr, touchX , true));
+				}
 			}
 		}
 		
@@ -63,13 +67,16 @@ package objects
 			tapContainer.x = tableContainer.width + LevelsProperties.spaceBetweenTableAndTap;
 			
 			addChild(tapContainer);
+			
 			tapContainer.addEventListener(TouchEvent.TOUCH , tapTouched);
 		}
 		
 		// przechwycenie kliknięcia w kran
 		private function tapTouched(e:TouchEvent):void
 		{
-			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED , _tableNr, 0 , true));
+						
+			if (e.touches[0].phase==TouchPhase.BEGAN || e.touches[0].phase == TouchPhase.ENDED) 
+				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));			
 		}
 
 		/**
