@@ -1,6 +1,5 @@
 package levels
 {
-	import events.CustomTouchEvent;
 	
 	import levels.LevelsProperties;
 	
@@ -10,7 +9,7 @@ package levels
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.TouchEvent;
+
 
 	public class Level1 extends Sprite
 	{
