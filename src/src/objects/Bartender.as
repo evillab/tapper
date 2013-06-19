@@ -9,6 +9,9 @@ package objects
 	public class Bartender extends Sprite
 	{
 		public static const MUG_FULL:String = "mug_full"; //już pełen kufel
+		
+		
+		
 		public function Bartender():void
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);

@@ -25,8 +25,10 @@ package
 		
 		private function initStarling():void
 		{
+			Starling.multitouchEnabled = false;
 			_starling = new Starling(Game , stage);
 			_starling.antiAliasing= 1;
+			_starling.simulateMultitouch = false;			
 			_starling.start();
 		}
 		
