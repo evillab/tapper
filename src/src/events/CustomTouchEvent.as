@@ -1,6 +1,6 @@
 package events
 {
-	import starling.events.Event;
+	import starling.events.Event;	
 	
 	public class CustomTouchEvent extends Event
 	{
@@ -9,12 +9,14 @@ package events
 		
 		public var which:uint;
 		public var x:Number;
+		public var phase:String;
 		
-		public function CustomTouchEvent(type:String, _which:uint = 0 , _x:Number = 0 , bubbles:Boolean=false, data:Object=null)
+		public function CustomTouchEvent(type:String, _phase:String, _which:uint = 0 , _x:Number = 0 , bubbles:Boolean=false, data:Object=null)
 		{
 			super(type, bubbles, data);
 			this.which = _which;
 			this.x = _x;
+			this.phase = _phase;
 		}
 	}
 }

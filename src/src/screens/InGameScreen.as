@@ -10,6 +10,7 @@ package screens
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.Touch;
+	import starling.events.TouchEvent;
 	
 	
 	public class InGameScreen extends Sprite
@@ -35,7 +36,7 @@ package screens
 		
 		private function tapTouched(e:CustomTouchEvent):void
 		{
-			
+				
 			if (currentTapNum!=e.which)
 			{
 				currentTapNum = e.which;
