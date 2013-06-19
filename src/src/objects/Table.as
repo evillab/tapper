@@ -9,6 +9,7 @@ package objects
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	
 	public class Table extends Sprite
@@ -28,6 +29,7 @@ package objects
 			drawTap();
 		}
 		
+		// dodanie grafiki baru
 		private function drawTable():void
 		{
 			tableContainer = new Sprite();
@@ -39,11 +41,18 @@ package objects
 			tableContainer.addEventListener(TouchEvent.TOUCH , tableTouched);
 		}
 		
-		private function tableTouched():void
+		// przechwycenie kliknięcia w bar
+		private function tableTouched(e:TouchEvent):void
 		{
-			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED , _tableNr , true));
+			var touches:Vector.<Touch> = e.touches;
+			if(touches.length)
+			{
+				var touchX:Number = (touches[0] as Touch).globalX;
+				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TABLE_TOUCHED,_tableNr, touchX , true));
+			}
 		}
 		
+		// dodanie grafiki kranu
 		private function drawTap():void
 		{
 			tapContainer = new Sprite();
@@ -57,11 +66,15 @@ package objects
 			tapContainer.addEventListener(TouchEvent.TOUCH , tapTouched);
 		}
 		
-		private function tapTouched():void
+		// przechwycenie kliknięcia w kran
+		private function tapTouched(e:TouchEvent):void
 		{
-			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,_tableNr , true));
+			dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED , _tableNr, 0 , true));
 		}
 
+		/**
+		 *  ustawia numer (liczbe porządkową) baru - potrzebne do przenoszenia barmana w kliknięte miejsce
+		 */
 		public function set tableNr(value:uint):void
 		{
 			_tableNr = value;
