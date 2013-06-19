@@ -1,7 +1,5 @@
 package screens
 {
-	import flash.events.TouchEvent;
-	
 	import events.CustomTouchEvent;
 	
 	import levels.Level1;
@@ -9,14 +7,12 @@ package screens
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
-	
+	import starling.events.TouchPhase;
 	
 	public class InGameScreen extends Sprite
 	{
 		private var level1:Level1;
-		private var currentTapNum:int=-1;
+		
 		public function InGameScreen()
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
@@ -37,14 +33,12 @@ package screens
 		private function tapTouched(e:CustomTouchEvent):void
 		{
 				
-			if (currentTapNum!=e.which)
-			{
-				currentTapNum = e.which;
-				trace("tap nr: " + e.which);
-				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
-				level1.bartender.x = LevelsProperties.bartenderDefaultX;
-			}
-			
+				if(e.phase==TouchPhase.BEGAN)
+				{
+					trace("tap nr: " + e.which);
+					level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
+					level1.bartender.x = LevelsProperties.bartenderDefaultX;			
+				}
 		}
 		
 		private function tableTouched(e:CustomTouchEvent):void
