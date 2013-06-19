@@ -8,6 +8,8 @@ package levels
 	import objects.Mug;
 	import objects.Table;
 	
+	import score.Score;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.TouchEvent;
@@ -15,8 +17,8 @@ package levels
 	public class Level1 extends Sprite
 	{
 		private var _tables:Vector.<Table> = new Vector.<Table>;
-
 		private var _bartender:Bartender;
+		private var _scoreCounter:Score;
 		
 		public function Level1()
 		{
@@ -29,6 +31,14 @@ package levels
 			addTables();
 			AddMug();
 			addBartender();
+			addScoreCounter();
+		}
+		
+		private function addScoreCounter():void
+		{
+			_scoreCounter = new Score();
+			_scoreCounter.x = LevelsProperties.SCORE_COUNTER_X;
+			addChild(_scoreCounter);
 		}
 		
 		// dodanie barmana 
