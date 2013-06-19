@@ -9,7 +9,7 @@ package objects
 	public class Bartender extends Sprite
 	{
 		public static const MUG_FULL:String = "mug_full"; //już pełen kufel
-		
+		private var _canRunAlongTable:Boolean = false;
 		
 		
 		public function Bartender():void
@@ -71,6 +71,17 @@ package objects
 		{
 			
 		}
+
+		public function get canRunAlongTable():Boolean
+		{
+			return _canRunAlongTable;
+		}
+
+		public function set canRunAlongTable(value:Boolean):void
+		{
+			_canRunAlongTable = value;
+		}
+
 		
 	}
 	

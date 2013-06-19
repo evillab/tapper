@@ -11,12 +11,14 @@ package screens
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	
 	
 	public class InGameScreen extends Sprite
 	{
 		private var level1:Level1;
 		private var currentTapNum:int=-1;
+		
 		public function InGameScreen()
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
@@ -32,6 +34,14 @@ package screens
 			level1.addEventListener(CustomTouchEvent.TABLE_TOUCHED , tableTouched);
 			level1.addEventListener(CustomTouchEvent.TAP_TOUCHED , tapTouched);
 			
+			this.addEventListener(Event.ENTER_FRAME , onEnterFrame);
+			
+		}
+		
+		private function onEnterFrame():void
+		{
+			if(level1.bartender.canRunAlongTable)
+				level1.bartender.x --;
 		}
 		
 		private function tapTouched(e:CustomTouchEvent):void
@@ -40,7 +50,6 @@ package screens
 			if (currentTapNum!=e.which)
 			{
 				currentTapNum = e.which;
-				trace("tap nr: " + e.which);
 				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
 				level1.bartender.x = LevelsProperties.bartenderDefaultX;
 			}
@@ -49,8 +58,18 @@ package screens
 		
 		private function tableTouched(e:CustomTouchEvent):void
 		{
-			level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
-			level1.bartender.x = e.x;
+			if(e.phase == TouchPhase.BEGAN)
+			{	
+				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
+				level1.bartender.x = LevelsProperties.bartenderXPositionNearTable;
+				level1.bartender.canRunAlongTable = true;
+			}
+			else if(e.phase == TouchPhase.ENDED)
+			{
+				level1.bartender.canRunAlongTable = false;
+			}
+			
+			
 		}
 	}
 }
