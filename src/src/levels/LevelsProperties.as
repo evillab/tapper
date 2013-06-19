@@ -2,6 +2,10 @@ package levels
 {
 	public class LevelsProperties
 	{
+		// parametry wspólne dla wszystkich leveli
+		public static const SCORE_COUNTER_X:Number = 700;
+		
+		
 		// LEVEL1
 		public static const numberOfTables:uint = 4;
 		public static const spaceBetweenTableAndTap:Number = 200;
