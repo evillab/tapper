@@ -1,7 +1,5 @@
 package screens
 {
-	import flash.events.TouchEvent;
-	
 	import events.CustomTouchEvent;
 	
 	import levels.Level1;
@@ -13,11 +11,9 @@ package screens
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
-	
 	public class InGameScreen extends Sprite
 	{
 		private var level1:Level1;
-		private var currentTapNum:int=-1;
 		
 		public function InGameScreen()
 		{
@@ -46,14 +42,12 @@ package screens
 		
 		private function tapTouched(e:CustomTouchEvent):void
 		{
-				
-			if (currentTapNum!=e.which)
+			if(e.phase==TouchPhase.BEGAN)
 			{
-				currentTapNum = e.which;
 				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
-				level1.bartender.x = LevelsProperties.bartenderDefaultX;
+				level1.bartender.x = LevelsProperties.bartenderDefaultX;			
 			}
-			
+
 		}
 		
 		private function tableTouched(e:CustomTouchEvent):void
@@ -67,6 +61,7 @@ package screens
 			else if(e.phase == TouchPhase.ENDED)
 			{
 				level1.bartender.canRunAlongTable = false;
+				level1.bartender.x = LevelsProperties.bartenderXPositionNearTable;
 			}
 			
 			
