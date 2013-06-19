@@ -30,14 +30,16 @@ package levels
 			addBartender();
 		}
 		
+		// dodanie barmana 
 		private function addBartender():void
 		{
 			_bartender = new Bartender();
-			_bartender.x= stage.stageWidth/1.6;
+			_bartender.x= LevelsProperties.bartenderDefaultX;
 			_bartender.y = stage.stageHeight/1.6;
 			addChild(_bartender);	
 		}
 		
+		// dodanie kufla (narazie testowo)
 		private function AddMug():void
 		{
 			var mug:Mug = new Mug();
@@ -46,9 +48,10 @@ package levels
 			addChild(mug);
 		}
 		
+		// dodanie obiektów baru i kranu
 		private function addTables():void
 		{
-			for(var i:uint =0; i< 4 ; i++)
+			for(var i:uint =0; i< LevelsProperties.numberOfTables ; i++)
 			{	
 				var table:Table = new Table();
 				table.tableNr = i;

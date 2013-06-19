@@ -36,19 +36,20 @@ package screens
 		private function tapTouched(e:CustomTouchEvent):void
 		{
 			
-			
 			if (currentTapNum!=e.which)
 			{
 				currentTapNum = e.which;
 				trace("tap nr: " + e.which);
-				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];	
+				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
+				level1.bartender.x = LevelsProperties.bartenderDefaultX;
 			}
 			
 		}
 		
 		private function tableTouched(e:CustomTouchEvent):void
 		{
-			trace("table nr: " + e.which);
+			level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
+			level1.bartender.x = e.x;
 		}
 	}
 }
