@@ -8,7 +8,10 @@ package resources
 	
 	public class Assets
 	{
-		//menu
+		//welcome screen background
+		[Embed(source="../../assets/graphics/welcomeScreen/welcomeScreenBg.png")]
+		public static const WelcomeScreenBg:Class;
+		
 		[Embed(source="../../assets/graphics/table.png")]
 		public static const Table:Class;
 		
