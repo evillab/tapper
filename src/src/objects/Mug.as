@@ -1,13 +1,19 @@
 package objects
 {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
 	import resources.Assets;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.utils.deg2rad;
+	import starling.utils.rad2deg;
 	
 	public class Mug extends Sprite
 	{
+		private var deleteTimer:Timer = new Timer(500,1);
 		public function Mug():void
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
@@ -20,8 +26,22 @@ package objects
 		
 		private function drawMug():void
 		{
-			var tableImage:Image = new Image(Assets.getTexture("Mug"));
+			var tableImage:Image = new Image(Assets.getTexture("Mug"));			
+			tableImage.x=-tableImage.width/2;
 			this.addChild(tableImage);
+			
+			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
+		}
+		/**
+		 * usuwanie kufla
+		 */
+		public function removeMe(e:TimerEvent=null):void
+		{			
+			deleteTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
+			this.removeEventListeners();
+			this.dispose();
+			this.parent.removeChild(this);
+			
 		}
 		
 		//// interface do obsługi stanów kufla
@@ -46,6 +66,12 @@ package objects
 		public function crashFull():void
 		{
 			this.visible=true;
+			this.rotation=deg2rad(270);
+			this.x-=20;
+			this.y+=60;
+			deleteTimer.start();
+			
+			
 		}
 		/**
 		 * rozbicie pustego (wracał od klienta)

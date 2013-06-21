@@ -18,12 +18,39 @@ package objects
 		private var tableContainer:Sprite;
 		private var tapContainer:Sprite;
 		private var _tableNr:uint;
+		private var _mugVector:Vector.<Mug> = new Vector.<Mug>;
+		
 		
 		public function Table():void
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 		}
-		
+		public function createMug():void
+		{
+			var mug:Mug = new Mug();
+			mug.x = tableContainer.width-30;
+			_mugVector.push(mug);
+			addChild(mug);
+		}
+		public function onEnterFrame():void
+		{
+			for(var i:uint=0; i<_mugVector.length; i++)
+			{
+				if(_mugVector[i].x<=0)
+				{					
+					_mugVector[i].crashFull();	
+					_mugVector.splice(i,1);
+					return;				
+				}
+				else
+				{	
+					_mugVector[i].x-=2;	
+					if (_mugVector[i].x%14==0)						
+						_mugVector[i].scaleX*=-1;
+				}
+				
+			}			
+		}
 		private function onAddedToStage():void
 		{
 			drawTable();

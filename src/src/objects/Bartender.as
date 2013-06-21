@@ -58,6 +58,13 @@ package objects
 			dispatchEvent(new Event(Bartender.MUG_FULL));
 		}
 		/**
+		 * wysyłanie kufla do klienta
+		 */
+		public function serveMugAnim():void
+		{
+			
+		}
+		/**
 		 * animacja wygranego poziomu
 		 */
 		public function levelWinAnim():void
@@ -81,6 +88,7 @@ package objects
 		{
 			_canRunAlongTable = value;
 		}
+	
 
 		
 	}

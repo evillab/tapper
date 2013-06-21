@@ -1,5 +1,7 @@
 package screens
 {
+	import flash.utils.getTimer;
+	
 	import events.CustomTouchEvent;
 	
 	import levels.Level1;
@@ -7,13 +9,13 @@ package screens
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
 	public class InGameScreen extends Sprite
 	{
 		private var level1:Level1;
+		private var mugFillStartTime:Number;
+		private var _currentTap:uint;
 		
 		public function InGameScreen()
 		{
@@ -38,16 +40,44 @@ package screens
 		{
 			if(level1.bartender.canRunAlongTable)
 				level1.bartender.x --;
+			for(var i:uint =0; i< LevelsProperties.numberOfTables ; i++)
+			{
+				level1.tables[i].onEnterFrame();
+			}
 		}
 		
 		private function tapTouched(e:CustomTouchEvent):void
 		{
 			if(e.phase==TouchPhase.BEGAN)
 			{
+				_currentTap = e.which;
 				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
-				level1.bartender.x = LevelsProperties.bartenderDefaultX;			
+				level1.bartender.x = LevelsProperties.bartenderDefaultX;
+				mugFillStartTime = getTimer();
+				level1.bartender.fillMugAnim();
+			}
+			if(e.phase==TouchPhase.ENDED)
+			{
+				checkFillTime();
 			}
 
+		}
+		
+		private function checkFillTime():void
+		{
+			if (getTimer()>=mugFillStartTime+LevelsProperties.MUG_FILL_TIME)
+			{
+				trace("KUFELEK NALANY!");
+				level1.bartender.serveMugAnim();
+				level1.tables[_currentTap].createMug();
+			}
+			else
+			{
+				trace("KUFELEK NIE NALANY DO KOŃCA!");
+				
+				level1.bartender.standAnim();
+			}
+			
 		}
 		
 		private function tableTouched(e:CustomTouchEvent):void

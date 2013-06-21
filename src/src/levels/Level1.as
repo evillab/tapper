@@ -1,11 +1,14 @@
 package levels
 {
 	
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
 	import levels.LevelsProperties;
 	
 	import objects.Bartender;
-	import objects.Mug;
 	import objects.Table;
+	import objects.customer.CustomerManager;
 	
 	import score.Score;
 	
@@ -18,6 +21,7 @@ package levels
 		private var _tables:Vector.<Table> = new Vector.<Table>;
 		private var _bartender:Bartender;
 		private var _scoreCounter:Score;
+		private var _customerManager:CustomerManager;
 		
 		public function Level1()
 		{
@@ -28,9 +32,16 @@ package levels
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			addTables();
-			AddMug();
+			
 			addBartender();
 			addScoreCounter();
+			setCustomerManager();
+		}
+		
+		private function setCustomerManager():void
+		{
+			_customerManager = new CustomerManager();
+			addChild(_customerManager);
 		}
 		
 		private function addScoreCounter():void
@@ -49,14 +60,7 @@ package levels
 			addChild(_bartender);	
 		}
 		
-		// dodanie kufla (narazie testowo)
-		private function AddMug():void
-		{
-			var mug:Mug = new Mug();
-			mug.x = stage.stageWidth/2;
-			mug.y = stage.stageHeight/2;
-			addChild(mug);
-		}
+		
 		
 		// dodanie obiektów baru i kranu
 		private function addTables():void
@@ -82,7 +86,15 @@ package levels
 		{
 			_bartender = value;
 		}
-
+		public function get tables():Vector.<Table>
+		{
+			return _tables;
+		}
+		
+		public function set tables(value:Vector.<Table>):void
+		{
+			_tables = value;
+		}
 		
 	}
 }
