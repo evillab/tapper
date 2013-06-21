@@ -88,6 +88,7 @@ package objects
 		{
 			_canRunAlongTable = value;
 		}
+	
 
 		
 	}

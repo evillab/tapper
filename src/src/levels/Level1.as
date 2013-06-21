@@ -4,7 +4,6 @@ package levels
 	import levels.LevelsProperties;
 	
 	import objects.Bartender;
-	import objects.Mug;
 	import objects.Table;
 	
 	import score.Score;
@@ -28,7 +27,7 @@ package levels
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			addTables();
-			AddMug();
+			
 			addBartender();
 			addScoreCounter();
 		}
@@ -49,14 +48,7 @@ package levels
 			addChild(_bartender);	
 		}
 		
-		// dodanie kufla (narazie testowo)
-		private function AddMug():void
-		{
-			var mug:Mug = new Mug();
-			mug.x = stage.stageWidth/2;
-			mug.y = stage.stageHeight/2;
-			addChild(mug);
-		}
+		
 		
 		// dodanie obiektów baru i kranu
 		private function addTables():void
@@ -82,7 +74,15 @@ package levels
 		{
 			_bartender = value;
 		}
-
+		public function get tables():Vector.<Table>
+		{
+			return _tables;
+		}
+		
+		public function set tables(value:Vector.<Table>):void
+		{
+			_tables = value;
+		}
 		
 	}
 }
