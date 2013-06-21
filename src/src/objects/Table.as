@@ -44,7 +44,9 @@ package objects
 				}
 				else
 				{	
-					_mugVector[i].x-=2;					
+					_mugVector[i].x-=2;	
+					if (_mugVector[i].x%14==0)						
+						_mugVector[i].scaleX*=-1;
 				}
 				
 			}			

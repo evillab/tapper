@@ -26,8 +26,10 @@ package objects
 		
 		private function drawMug():void
 		{
-			var tableImage:Image = new Image(Assets.getTexture("Mug"));
+			var tableImage:Image = new Image(Assets.getTexture("Mug"));			
+			tableImage.x=-tableImage.width/2;
 			this.addChild(tableImage);
+			
 			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
 		}
 		/**
