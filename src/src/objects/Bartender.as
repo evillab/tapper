@@ -76,7 +76,7 @@ package objects
 		 */
 		public function levelLostAnim():void
 		{
-			
+			trace("ROZJEBAŁEM PEŁNY KUFEL!");
 		}
 
 		public function get canRunAlongTable():Boolean
