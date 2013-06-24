@@ -1,10 +1,14 @@
 package levels
 {
 	
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
 	import levels.LevelsProperties;
 	
 	import objects.Bartender;
 	import objects.Table;
+	import objects.customer.CustomerManager;
 	
 	import score.Score;
 	
@@ -17,6 +21,7 @@ package levels
 		private var _tables:Vector.<Table> = new Vector.<Table>;
 		private var _bartender:Bartender;
 		private var _scoreCounter:Score;
+		private var _customerManager:CustomerManager;
 		
 		public function Level1()
 		{
@@ -30,6 +35,13 @@ package levels
 			
 			addBartender();
 			addScoreCounter();
+			setCustomerManager();
+		}
+		
+		private function setCustomerManager():void
+		{
+			_customerManager = new CustomerManager();
+			addChild(_customerManager);
 		}
 		
 		private function addScoreCounter():void
