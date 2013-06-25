@@ -12,7 +12,6 @@ package resources
 		[Embed(source="../../assets/graphics/welcomeScreen/welcomeScreenBg.png")]
 		public static const WelcomeScreenBg:Class;
 		
-		
 		[Embed(source="../../assets/graphics/table.png")]
 		public static const Table:Class;
 		
@@ -35,6 +34,16 @@ package resources
 		[Embed(source="../../assets/graphics/customer3.jpg")]
 		public static const Customer3:Class;
 		
+		// bartender
+		[Embed(source="../../assets/graphics/bartender/bartender.png")]
+		public static const Bartender:Class;
+		
+		//mug
+		[Embed(source="../../assets/graphics/mug/mug_empty.png")]
+		public static const MugEmpty:Class;
+		
+		[Embed(source="../../assets/graphics/mug/mug_full.png")]
+		public static const MugFull:Class;
 		
 		private static var gameTexture:Dictionary = new Dictionary();
 		private static var gameTextureAtlas : TextureAtlas;
