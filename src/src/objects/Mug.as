@@ -3,6 +3,9 @@ package objects
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import events.CustomTouchEvent;
+	import events.GameLostEvent;
+	
 	import resources.Assets;
 	
 	import starling.display.Image;
@@ -40,7 +43,9 @@ package objects
 			deleteTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
 			this.removeEventListeners();
 			this.dispose();
+			dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.MUG_TABLE_END, true)); //dispatch przed usunięciem!
 			this.parent.removeChild(this);
+			
 			
 		}
 		

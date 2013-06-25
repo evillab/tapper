@@ -3,6 +3,7 @@ package screens
 	import flash.utils.getTimer;
 	
 	import events.CustomTouchEvent;
+	import events.GameLostEvent;
 	
 	import levels.Level1;
 	import levels.LevelsProperties;
@@ -24,17 +25,33 @@ package screens
 		
 		private function onAddedToStage():void
 		{
-			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
-			
+			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);			
 			level1 = new Level1();
-			addChild(level1);
-	
+			addChild(level1);	
+			addListeners();						
+		}
+		private function addListeners():void
+		{
 			level1.addEventListener(CustomTouchEvent.TABLE_TOUCHED , tableTouched);
 			level1.addEventListener(CustomTouchEvent.TAP_TOUCHED , tapTouched);
-			
+			level1.addEventListener(GameLostEvent.LOST_EVENT, gameLost);			
 			this.addEventListener(Event.ENTER_FRAME , onEnterFrame);
-			
 		}
+		
+		private function gameLost(e:GameLostEvent):void
+		{			
+			level1.bartender.levelLostAnim();					
+			removeListeners();
+			trace("GRA PRZEGRANA, POWÓD: "+e.lostReason);
+		}
+		
+		private function removeListeners():void
+		{
+			this.removeEventListeners();
+			level1.removeEventListener(CustomTouchEvent.TABLE_TOUCHED , tableTouched);
+			level1.removeEventListener(CustomTouchEvent.TAP_TOUCHED , tapTouched);
+			level1.removeEventListener(GameLostEvent.LOST_EVENT, gameLost);
+		}		
 		
 		private function onEnterFrame():void
 		{
@@ -66,15 +83,12 @@ package screens
 		private function checkFillTime():void
 		{
 			if (getTimer()>=mugFillStartTime+LevelsProperties.MUG_FILL_TIME)
-			{
-				trace("KUFELEK NALANY!");
+			{				
 				level1.bartender.serveMugAnim();
 				level1.tables[_currentTap].createMug();
 			}
 			else
 			{
-				trace("KUFELEK NIE NALANY DO KOŃCA!");
-				
 				level1.bartender.standAnim();
 			}
 			
