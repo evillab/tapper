@@ -8,10 +8,27 @@ package resources
 	
 	public class Assets
 	{
-		//welcome screen background
-		[Embed(source="../../assets/graphics/welcomeScreen/welcomeScreenBg.png")]
+		//welcome screen 
+		[Embed(source="../../assets/graphics/welcomeScreen/background.png")]
 		public static const WelcomeScreenBg:Class;
 		
+		[Embed(source="../../assets/graphics/welcomeScreen/barEndBartender.png")]
+		public static const BarEndBartender:Class;
+		
+		[Embed(source="../../assets/graphics/welcomeScreen/beer.png")]
+		public static const Beer:Class;
+		
+		[Embed(source="../../assets/graphics/welcomeScreen/boards.png")]
+		public static const Boards:Class;
+		
+		[Embed(source="../../assets/graphics/welcomeScreen/eyes.png")]
+		public static const Eyes:Class;
+		
+		[Embed(source="../../assets/graphics/welcomeScreen/bartenderWithBeer.png")]
+		public static const BartenderWithBeer:Class;
+		
+		
+
 		[Embed(source="../../assets/graphics/table.png")]
 		public static const Table:Class;
 		
@@ -20,9 +37,6 @@ package resources
 		
 		[Embed(source="../../assets/graphics/tap.png")]
 		public static const Tap:Class;
-		
-		[Embed(source="../../assets/graphics/bartender.png")]
-		public static const Bartender:Class;
 		
 		//customers
 		[Embed(source="../../assets/graphics/customer1.jpg")]
