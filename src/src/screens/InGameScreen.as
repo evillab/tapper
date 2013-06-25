@@ -8,6 +8,8 @@ package screens
 	import levels.Level1;
 	import levels.LevelsProperties;
 	
+	import score.Score;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.TouchPhase;
@@ -17,6 +19,7 @@ package screens
 		private var level1:Level1;
 		private var mugFillStartTime:Number;
 		private var _currentTap:uint;
+		private var _scoreCounter:Score;
 		
 		public function InGameScreen()
 		{
@@ -26,10 +29,18 @@ package screens
 		private function onAddedToStage():void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);			
+			addScoreCounter();
 			level1 = new Level1();
 			addChild(level1);	
 			addListeners();						
 		}
+		private function addScoreCounter():void
+		{
+			_scoreCounter = new Score();
+			_scoreCounter.x = LevelsProperties.SCORE_COUNTER_X;
+			addChild(_scoreCounter);
+		}
+		
 		private function addListeners():void
 		{
 			level1.addEventListener(CustomTouchEvent.TABLE_TOUCHED , tableTouched);

@@ -24,8 +24,9 @@ package objects
 		
 		private function drawBartender():void
 		{
-			var tableImage:Image = new Image(Assets.getTexture("Bartender"));
-			this.addChild(tableImage);
+			var bartenderImage:Image = new Image(Assets.getTexture("Bartender"));
+			bartenderImage.y = -(bartenderImage.height/3);
+			this.addChild(bartenderImage);
 		}
 		///interface do bsługi stanów barmana
 		/**

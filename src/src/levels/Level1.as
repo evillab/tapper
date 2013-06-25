@@ -1,14 +1,10 @@
 package levels
 {
-	
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	
-	import levels.LevelsProperties;
-	
+
+	import levels.LevelsProperties;	
 	import objects.Bartender;
 	import objects.Table;
-	import objects.customer.CustomerManager;
+
 	
 	import score.Score;
 	
@@ -21,7 +17,7 @@ package levels
 		private var _tables:Vector.<Table> = new Vector.<Table>;
 		private var _bartender:Bartender;
 		private var _scoreCounter:Score;
-		private var _customerManager:CustomerManager;
+	
 		
 		public function Level1()
 		{
@@ -31,26 +27,10 @@ package levels
 		private function onAddedToStage():void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
-			addTables();
-			
-			addBartender();
-			addScoreCounter();
-			setCustomerManager();
+			addTables();			
+			addBartender();			
 		}
-		
-		private function setCustomerManager():void
-		{
-			_customerManager = new CustomerManager();
-			addChild(_customerManager);
-		}
-		
-		private function addScoreCounter():void
-		{
-			_scoreCounter = new Score();
-			_scoreCounter.x = LevelsProperties.SCORE_COUNTER_X;
-			addChild(_scoreCounter);
-		}
-		
+
 		// dodanie barmana 
 		private function addBartender():void
 		{
@@ -59,8 +39,6 @@ package levels
 			_bartender.y = stage.stageHeight/1.6;
 			addChild(_bartender);	
 		}
-		
-		
 		
 		// dodanie obiektów baru i kranu
 		private function addTables():void

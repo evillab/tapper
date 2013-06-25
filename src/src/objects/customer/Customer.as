@@ -1,6 +1,5 @@
 package objects.customer
 {
-	import flash.display.Bitmap;
 	
 	import resources.Assets;
 	
@@ -31,7 +30,6 @@ package objects.customer
 		
 		private function setCustomerParameters():void
 		{
-			trace("typ: "+_type);
 			_points = CustomerProperties.CUSTOMER[_type][0];
 			_xSpeed = CustomerProperties.CUSTOMER[_type][2];
 		}
@@ -40,7 +38,14 @@ package objects.customer
 		private function drawCustomer():void
 		{
 			var customerImage:Image =  new Image(Assets.getTexture(CustomerProperties.CUSTOMER[_type][1]));
+			customerImage.y = - (customerImage.height);
 			addChild(customerImage);
 		}
+
+		public function get xSpeed():uint
+		{
+			return _xSpeed;
+		}
+
 	}
 }
