@@ -1,10 +1,15 @@
 package objects
 {
+	import flash.utils.getTimer;
+	
 	import events.CustomTouchEvent;
 	
 	import levels.LevelsProperties;
 	
+	import objects.customer.Customer;
+	
 	import resources.Assets;
+	import resources.Utils;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -19,12 +24,17 @@ package objects
 		private var tapContainer:Sprite;
 		private var _tableNr:uint;
 		private var _mugVector:Vector.<Mug> = new Vector.<Mug>;
+		private var _customerVector:Vector.<Customer> = new Vector.<Customer>;
+		
+		private var _customerTime:Number=0;
 		
 		
 		public function Table():void
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
+			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
 		}
+		
 		public function createMug():void
 		{
 			var mug:Mug = new Mug();
@@ -32,6 +42,15 @@ package objects
 			_mugVector.push(mug);
 			addChild(mug);
 		}
+		
+		private function createCustomer():void
+		{
+			var dawrCustomerNr:Number = (Math.floor(Math.random() *3));		
+			var customer:Customer = new Customer(dawrCustomerNr);			
+			_customerVector.push(customer);
+			addChild(customer);
+		}
+		
 		public function onEnterFrame():void
 		{
 			for(var i:uint=0; i<_mugVector.length; i++)
@@ -47,9 +66,25 @@ package objects
 					_mugVector[i].x-=2;	
 					if (_mugVector[i].x%14==0)						
 						_mugVector[i].scaleX*=-1;
-				}
-				
-			}			
+				}				
+			}
+			for(var j:uint=0; j<_customerVector.length; j++)
+			{
+				_customerVector[j].x+=((Utils.randomNumber(1,10)+_customerVector[j].xSpeed) /20);													
+			}
+			checkToCreateCustomer();
+		}
+		
+		private function checkToCreateCustomer():void
+		{
+			
+			
+			if (getTimer()>_customerTime)
+			{
+				_customerTime = getTimer() + (Utils.randomNumber(LevelsProperties.customerRate[0],LevelsProperties.customerRate[1])*100);
+				createCustomer();
+			}
+			
 		}
 		private function onAddedToStage():void
 		{

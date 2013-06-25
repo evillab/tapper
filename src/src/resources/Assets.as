@@ -32,20 +32,18 @@ package resources
 		[Embed(source="../../assets/graphics/table.png")]
 		public static const Table:Class;
 		
-		[Embed(source="../../assets/graphics/mug.png")]
-		public static const Mug:Class;
-		
+
 		[Embed(source="../../assets/graphics/tap.png")]
 		public static const Tap:Class;
 		
 		//customers
-		[Embed(source="../../assets/graphics/customer1.jpg")]
+		[Embed(source="../../assets/graphics/customer1.png")]
 		public static const Customer1:Class;
 		
-		[Embed(source="../../assets/graphics/customer2.jpg")]
+		[Embed(source="../../assets/graphics/customer2.png")]
 		public static const Customer2:Class;
 		
-		[Embed(source="../../assets/graphics/customer3.jpg")]
+		[Embed(source="../../assets/graphics/customer3.png")]
 		public static const Customer3:Class;
 		
 		// bartender

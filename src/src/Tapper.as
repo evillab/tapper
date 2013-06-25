@@ -1,12 +1,16 @@
 package
 {
 	import com.demonsters.debugger.MonsterDebugger;
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	
+	import resources.Utils;
+	
 	import starling.core.Starling;
 	
-	[SWF(frameRate="60", width="800", height="480", backgroundColor="0x000000")]
+	[SWF(frameRate="60", width="800", height="480", backgroundColor="0x333333")]
 	public class Tapper extends Sprite
 	{
 		private var _starling:Starling;
@@ -35,6 +39,7 @@ package
 		private function initMonsterDebugger():void
 		{
 			MonsterDebugger.initialize(this);
+			//trace((Utils.randomNumber(15,30)*100));
 		}
 	}
 }

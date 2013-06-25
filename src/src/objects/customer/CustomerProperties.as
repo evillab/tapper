@@ -8,6 +8,6 @@ package objects.customer
 		 * 1- wyglad
 		 * 2- prędkośc przesuwania się w stronę barmana
 		 */ 
-		public static const CUSTOMER:Array =[[10, "Customer1" , 1], [20, "Customer2" , 2], [30, "Customer3" , 3]];
+		public static const CUSTOMER:Array =[[10, "Customer1" , 0], [20, "Customer2" , 1], [30, "Customer3" , 2]];
 	}
 }

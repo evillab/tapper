@@ -2,17 +2,13 @@ package objects
 {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	
-	import events.CustomTouchEvent;
 	import events.GameLostEvent;
-	
 	import resources.Assets;
-	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.deg2rad;
-	import starling.utils.rad2deg;
+
 	
 	public class Mug extends Sprite
 	{
@@ -29,9 +25,10 @@ package objects
 		
 		private function drawMug():void
 		{
-			var tableImage:Image = new Image(Assets.getTexture("Mug"));			
-			tableImage.x=-tableImage.width/2;
-			this.addChild(tableImage);
+			var mugImage:Image = new Image(Assets.getTexture("MugFull"));			
+			mugImage.x=-mugImage.width/2;
+			mugImage.y=-mugImage.height/2;
+			this.addChild(mugImage);
 			
 			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
 		}
@@ -72,8 +69,8 @@ package objects
 		{
 			this.visible=true;
 			this.rotation=deg2rad(270);
-			this.x-=20;
-			this.y+=60;
+			this.x-=15;
+			this.y+=50;
 			deleteTimer.start();
 			
 			
