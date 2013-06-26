@@ -51,9 +51,10 @@ package screens
 		
 		private function gameLost(e:GameLostEvent):void
 		{			
-			level1.bartender.levelLostAnim();					
+							
 			removeListeners();
 			trace("GRA PRZEGRANA, POWÓD: "+e.lostReason);
+			level1.bartender.levelLostAnim(e.lostReason);	
 		}
 		
 		private function removeListeners():void

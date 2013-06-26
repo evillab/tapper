@@ -1,9 +1,10 @@
 package objects
-{
-	import events.CustomTouchEvent;
-	
+{	
+	import com.demonsters.debugger.MonsterDebugger;
 	import flash.utils.getTimer;
-	
+	import events.CustomTouchEvent;
+	import events.GameLostEvent;
+	import levels.Level1;
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -19,6 +20,8 @@ package objects
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
+	
+	
 	public class Table extends Sprite
 	{
 		private var tableContainer:Sprite;
@@ -28,6 +31,8 @@ package objects
 		private var _customerVector:Vector.<Customer> = new Vector.<Customer>;
 		private var _tableWidth:Number;
 		private var _tableHeight:Number;
+		
+		
 		
 		private var _customerTime:Number=0;
 		
@@ -39,6 +44,7 @@ package objects
 			
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
+			
 		}
 		
 		public function createMug():void
@@ -47,6 +53,8 @@ package objects
 			mug.x = tableContainer.width-30;
 			_mugVector.push(mug);
 			addChild(mug);
+			
+			
 		}
 		
 		private function createCustomer():void
@@ -55,31 +63,66 @@ package objects
 			var customer:Customer = new Customer(dawrCustomerNr);			
 			_customerVector.push(customer);
 			addChild(customer);
+			
 		}
 		
 		public function onEnterFrame():void
 		{
-			for(var i:uint=0; i<_mugVector.length; i++)
+			
+			
+			var custLength:uint = _customerVector.length;
+			for(var j:uint=0; j<custLength; j++)
 			{
-				if(_mugVector[i].x<=0)
+					
+				if( _customerVector[j].x >tableContainer.width-_customerVector[j].width)
 				{					
-					_mugVector[i].crashFull();	
-					_mugVector.splice(i,1);
-					return;				
+					dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.CLIENT_TABLE_END, true)); //dispatch przed usunięciem!
+					return;
 				}
 				else
-				{	
-					_mugVector[i].x-=2;	
-					if (_mugVector[i].x%14==0)						
-						_mugVector[i].scaleX*=-1;
-				}				
-			}
-			for(var j:uint=0; j<_customerVector.length; j++)
-			{
-				_customerVector[j].x+=((Utils.randomNumber(1,10)+_customerVector[j].xSpeed) /20);													
+				{
+				_customerVector[j].x+=((Utils.randomNumber(1,6)+_customerVector[j].xSpeed) /20);
+				}
 			}
 			checkToCreateCustomer();
+			
+			var mugLength:uint = _mugVector.length;
+			for(var i:uint=0; i<mugLength; i++)
+			{
+				if (_mugVector[i].touched)
+				{
+					_customerVector[_mugVector[i].whichCustomer].x-=LevelsProperties.CUSTOMER_BACK_SPACE;
+					if (_customerVector[_mugVector[i].whichCustomer].x<=0)
+						deleteCustomer(_mugVector[i].whichCustomer);					
+					_mugVector[i].deleteMe(false);
+					_mugVector.splice(i,1);					
+					return;						
+				}
+				else
+				{
+				
+					if(_mugVector[i].x<=0)
+					{					
+						_mugVector[i].crashFull();	
+						_mugVector.splice(i,1);
+						return;				
+					}
+					else
+					{	
+						_mugVector[i].checkCollision(_customerVector);
+						_mugVector[i].x-=2;	
+						if (_mugVector[i].x%14==0)						
+							_mugVector[i].scaleX*=-1;
+					}
+				}
+			}
 		}
+		private function deleteCustomer(which:uint):void
+		{
+			removeChild(_customerVector[which]);
+			_customerVector.splice(which,1);
+		}
+		
 		
 		private function checkToCreateCustomer():void
 		{

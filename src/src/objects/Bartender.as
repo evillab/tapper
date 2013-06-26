@@ -1,5 +1,7 @@
 package objects
 {
+	import events.GameLostEvent;
+	
 	import resources.Assets;
 	
 	import starling.display.Image;
@@ -75,9 +77,12 @@ package objects
 		/**
 		 * animacja przegranego poziomu
 		 */
-		public function levelLostAnim():void
+		public function levelLostAnim(whatKind:String):void
 		{
-			trace("ROZJEBAŁEM PEŁNY KUFEL!");
+			if(whatKind==GameLostEvent.MUG_TABLE_END)
+				trace("ROZJEBAŁEM PEŁNY KUFEL!");
+			else if(whatKind==GameLostEvent.CLIENT_TABLE_END)
+				trace("WKURWIONY KLIENT!");
 		}
 
 		public function get canRunAlongTable():Boolean
