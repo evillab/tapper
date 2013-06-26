@@ -115,6 +115,7 @@ package screens
 			_winkTimer.delay = 1000;
 			_winkTimer.repeatCount = 1;
 			_winkTimer.addEventListener(TimerEvent.TIMER_COMPLETE , goToGame);
+			_winkTimer.start();
 			
 		}
 		

@@ -1,8 +1,8 @@
 package objects
 {
-	import flash.utils.getTimer;
-	
 	import events.CustomTouchEvent;
+	
+	import flash.utils.getTimer;
 	
 	import levels.LevelsProperties;
 	
@@ -12,6 +12,7 @@ package objects
 	import resources.Utils;
 	
 	import starling.display.Image;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -25,12 +26,17 @@ package objects
 		private var _tableNr:uint;
 		private var _mugVector:Vector.<Mug> = new Vector.<Mug>;
 		private var _customerVector:Vector.<Customer> = new Vector.<Customer>;
+		private var _tableWidth:Number;
+		private var _tableHeight:Number;
 		
 		private var _customerTime:Number=0;
 		
 		
-		public function Table():void
+		public function Table(_width:Number , _height:Number):void
 		{
+			_tableWidth = _width;
+			_tableHeight = _height;
+			
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
 		}
@@ -97,8 +103,9 @@ package objects
 		{
 			tableContainer = new Sprite();
 			
-			var tableImage:Image = new Image(Assets.getTexture("Table"));
-			tableContainer.addChild(tableImage);
+			var quad:Quad = new Quad(_tableWidth, _tableHeight , 0x00ff00);
+			quad.alpha = .6;
+			tableContainer.addChild(quad);
 			
 			addChild(tableContainer);
 			tableContainer.addEventListener(TouchEvent.TOUCH , tableTouched);
@@ -126,7 +133,8 @@ package objects
 			var tapImage:Image = new Image(Assets.getTexture("Tap"));
 			tapContainer.addChild(tapImage);
 			
-			tapContainer.x = tableContainer.width + LevelsProperties.spaceBetweenTableAndTap;
+			tapContainer.x = LevelsProperties.tapsPositionX[_tableNr];
+			tapContainer.y = LevelsProperties.tapsPositionY[_tableNr];
 			
 			addChild(tapContainer);
 			

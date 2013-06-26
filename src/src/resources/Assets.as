@@ -27,6 +27,9 @@ package resources
 		[Embed(source="../../assets/graphics/welcomeScreen/bartenderWithBeer.png")]
 		public static const BartenderWithBeer:Class;
 		
+		//level1
+		[Embed(source="../../assets/graphics/level1/background.png")]
+		public static const BackgroundL1:Class;
 		
 
 		[Embed(source="../../assets/graphics/table.png")]

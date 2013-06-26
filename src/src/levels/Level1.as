@@ -1,13 +1,16 @@
 package levels
 {
 
-	import levels.LevelsProperties;	
+	import levels.LevelsProperties;
+	
 	import objects.Bartender;
 	import objects.Table;
-
+	
+	import resources.Assets;
 	
 	import score.Score;
 	
+	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -27,10 +30,17 @@ package levels
 		private function onAddedToStage():void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
+			drawBackground();
 			addTables();			
 			addBartender();			
 		}
-
+		
+		private function drawBackground():void
+		{
+			var bg:Image =  new Image(Assets.getTexture("BackgroundL1"));
+			this.addChild(bg);
+		}
+		
 		// dodanie barmana 
 		private function addBartender():void
 		{
@@ -45,7 +55,7 @@ package levels
 		{
 			for(var i:uint =0; i< LevelsProperties.numberOfTables ; i++)
 			{	
-				var table:Table = new Table();
+				var table:Table = new Table(LevelsProperties.tablesWidth[i], 35 );
 				table.tableNr = i;
 				table.x = LevelsProperties.tablesPositionX[i];
 				table.y = LevelsProperties.tablesPositionY[i];
