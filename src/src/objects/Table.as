@@ -8,6 +8,7 @@ package objects
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
 	
+	import levels.Level1;
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -72,14 +73,13 @@ package objects
 			{
 					
 				if( _customerVector[j].x >tableContainer.width-_customerVector[j].width)
-				{
-					deleteCustomer(j);
+				{					
 					dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.CLIENT_TABLE_END, true)); //dispatch przed usunięciem!
 					return;
 				}
 				else
 				{
-				_customerVector[j].x+=((Utils.randomNumber(1,10)+_customerVector[j].xSpeed) /20);
+				_customerVector[j].x+=((Utils.randomNumber(1,6)+_customerVector[j].xSpeed) /20);
 				}
 			}
 			checkToCreateCustomer();
@@ -89,7 +89,9 @@ package objects
 			{
 				if (_mugVector[i].touched)
 				{
-					deleteCustomer(_mugVector[i].whichCustomer);
+					_customerVector[_mugVector[i].whichCustomer].x-=LevelsProperties.CUSTOMER_BACK_SPACE;
+					if (_customerVector[_mugVector[i].whichCustomer].x<=0)
+						deleteCustomer(_mugVector[i].whichCustomer);					
 					_mugVector[i].deleteMe(false);
 					_mugVector.splice(i,1);					
 					return;						
