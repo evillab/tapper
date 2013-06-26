@@ -5,7 +5,7 @@ package events
 	public class CustomTouchEvent extends Event
 	{
 		public static const TABLE_TOUCHED:String = "tableTouched";		
-		public static const TAP_TOUCHED:String = "tapTouched";
+		public static const TAP_TOUCHED:String = "tapTouched";		
 		
 		public var which:uint;
 		public var x:Number;

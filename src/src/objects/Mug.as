@@ -2,8 +2,13 @@ package objects
 {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	
 	import events.GameLostEvent;
+	
+	import objects.customer.Customer;
+	
 	import resources.Assets;
+	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -13,6 +18,9 @@ package objects
 	public class Mug extends Sprite
 	{
 		private var deleteTimer:Timer = new Timer(500,1);
+		public var whichCustomer:uint;
+		public var touched:Boolean=false;
+		
 		public function Mug():void
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
@@ -30,20 +38,38 @@ package objects
 			mugImage.y=-mugImage.height/2;
 			this.addChild(mugImage);
 			
-			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
+			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeTimerMe);
 		}
 		/**
 		 * usuwanie kufla
 		 */
-		public function removeMe(e:TimerEvent=null):void
+		private function removeTimerMe(e:TimerEvent=null):void
 		{			
-			deleteTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, removeMe);
+			deleteTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, removeTimerMe);
+			deleteMe(true);		
+		}
+		public function deleteMe(gameLost:Boolean=false):void
+		{
+			
 			this.removeEventListeners();
 			this.dispose();
-			dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.MUG_TABLE_END, true)); //dispatch przed usunięciem!
+			if (gameLost)
+				dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.MUG_TABLE_END, true)); //dispatch przed usunięciem!
 			this.parent.removeChild(this);
 			
-			
+		}
+		public function checkCollision(customerVector:Vector.<Customer>):void
+		{
+			var custLength:uint = customerVector.length;			
+			for (var i:uint; i<custLength; i++)
+			{				
+					if(Math.abs((customerVector[i].x+customerVector[i].width)-this.x)<4)
+					{
+						whichCustomer = i;
+						touched = true;
+						return;
+					}
+			}			
 		}
 		
 		//// interface do obsługi stanów kufla

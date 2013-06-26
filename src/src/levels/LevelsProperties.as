@@ -14,7 +14,7 @@ package levels
 		public static const tablesPositionY:Vector.<Number> = new <Number>[140,240,340];
 		public static const bartenderDefaultX:Number = 550;
 		public static const bartenderXPositionNearTable:Number = 430;
-		public static const customerRate:Vector.<uint> = new <uint>[40,80];
+		public static const customerRate:Vector.<uint> = new <uint>[40,140];
 		
 		
 		
