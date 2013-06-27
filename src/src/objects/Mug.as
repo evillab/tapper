@@ -20,6 +20,7 @@ package objects
 		private var deleteTimer:Timer = new Timer(500,1);
 		public var whichCustomer:uint;
 		public var touched:Boolean=false;
+		public var switchMugTime:Number=0;
 		
 		public function Mug():void
 		{

@@ -1,9 +1,12 @@
 package objects
 {	
 	import com.demonsters.debugger.MonsterDebugger;
+	
 	import flash.utils.getTimer;
+	
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
+	
 	import levels.Level1;
 
 	import levels.LevelsProperties;
@@ -38,6 +41,7 @@ package objects
 		private var _customerTime:Number=0;
 		
 		
+		
 		public function Table(_width:Number , _height:Number):void
 		{
 			_tableWidth = _width;
@@ -46,6 +50,8 @@ package objects
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
 			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
 			
+			
+			
 		}
 		
 		public function createMug():void
@@ -53,6 +59,7 @@ package objects
 			var mug:Mug = new Mug();
 			mug.x = tableContainer.width-30;
 			_mugVector.push(mug);
+			mug.switchMugTime = getTimer()+100;
 			addChild(mug);
 			
 			
@@ -112,8 +119,11 @@ package objects
 					{	
 						_mugVector[i].checkCollision(_customerVector);
 						_mugVector[i].x-=2;	
-						if (_mugVector[i].x%14==0)						
+						if (getTimer()>=_mugVector[i].switchMugTime)						
+						{
 							_mugVector[i].scaleX*=-1;
+							_mugVector[i].switchMugTime = getTimer()+100;
+						}
 					}
 				}
 			}
