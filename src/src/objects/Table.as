@@ -7,7 +7,7 @@ package objects
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
 	
-	
+
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -137,7 +137,7 @@ package objects
 			tableContainer = new Sprite();
 			
 			var quad:Quad = new Quad(_tableWidth, _tableHeight , 0x00ff00);
-			quad.alpha = .6;
+			quad.alpha = 0;
 			tableContainer.addChild(quad);
 			
 			addChild(tableContainer);
@@ -177,9 +177,25 @@ package objects
 		// przechwycenie kliknięcia w kran
 		private function tapTouched(e:TouchEvent):void
 		{
+			if(e.touches[0].phase==TouchPhase.BEGAN)
+			{	
+				tapContainer.x -=20;
+				tapContainer.y +=10;
+				tapContainer.rotation = -.5;
+			}	
+			else if(e.touches[0].phase==TouchPhase.ENDED)
+			{
+				tapContainer.x +=20;
+				tapContainer.y -=10;
+				tapContainer.rotation =0;
+			}
 						
 			if (e.touches[0].phase==TouchPhase.BEGAN || e.touches[0].phase == TouchPhase.ENDED) 
-				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));			
+			{
+				
+				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));
+					
+			}		
 		}
 
 		/**
