@@ -46,7 +46,7 @@ package levels
 		{
 			_bartender = new Bartender();
 			_bartender.x= LevelsProperties.bartenderDefaultX;
-			_bartender.y = stage.stageHeight/1.6;
+			_bartender.y = LevelsProperties.bartenderDefaultY;
 			addChild(_bartender);	
 		}
 		

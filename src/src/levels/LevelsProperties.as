@@ -14,9 +14,12 @@ package levels
 		public static const tablesPositionY:Vector.<Number> = new <Number>[235,314,396];
 		public static const tablesWidth:Vector.<Number> = new <Number>[370,435,500];
 		public static const tablesHeight:Vector.<Number> = new <Number>[55,50,45];
-		public static const bartenderDefaultX:Number = 550;
+		public static const bartenderDefaultX:Number = 540;
+		public static const bartenderDefaultY:Number = 270;
 		public static const bartenderXPositionNearTable:Number = 430;
 		public static const customerRate:Vector.<uint> = new <uint>[50,100];
+		public static const BARTENDER_POSITION_Y:Vector.<uint> =  new <uint>[190,270,340];
+		public static const BARTENDER_POSITION_X:Vector.<uint> =  new <uint>[500,540,590];
 		
 		public static const tapsPositionX:Vector.<Number> = new <Number>[455,526,591];
 		public static const tapsPositionY:Vector.<Number> = new <Number>[-48,-42,-43];

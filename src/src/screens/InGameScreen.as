@@ -80,8 +80,8 @@ package screens
 			if(e.phase==TouchPhase.BEGAN)
 			{
 				_currentTap = e.which;
-				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
-				level1.bartender.x = LevelsProperties.bartenderDefaultX;
+				level1.bartender.y = LevelsProperties.BARTENDER_POSITION_Y[e.which];
+				level1.bartender.x = LevelsProperties.BARTENDER_POSITION_X[e.which];
 				mugFillStartTime = getTimer();
 				level1.bartender.fillMugAnim();
 			}
