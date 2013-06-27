@@ -12,15 +12,13 @@ package objects
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.utils.deg2rad;
-
 	
 	public class Mug extends Sprite
 	{
 		private var deleteTimer:Timer = new Timer(500,1);
-		public var whichCustomer:uint;
-		public var touched:Boolean=false;
-		public var switchMugTime:Number=0;
+		private var _whichCustomer:uint;
+		private var _touched:Boolean=false;
+		private var _switchMugTime:Number=0;
 		
 		public function Mug():void
 		{
@@ -34,10 +32,10 @@ package objects
 		
 		private function drawMug():void
 		{
-			var mugImage:Image = new Image(Assets.getTexture("MugFull"));			
-			mugImage.x=-mugImage.width/2;
-			mugImage.y=-mugImage.height/2;
-			this.addChild(mugImage);
+			var mugFullImage:Image = new Image(Assets.getTexture("MugFull"));			
+			mugFullImage.x=-mugFullImage.width/2;
+			mugFullImage.y=-mugFullImage.height/2;
+			this.addChild(mugFullImage);
 			
 			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeTimerMe);
 		}
@@ -66,9 +64,12 @@ package objects
 			{				
 					if(Math.abs((customerVector[i].x+customerVector[i].width)-this.x)<4)
 					{
-						whichCustomer = i;
-						touched = true;
-						return;
+						if (customerVector[i].drinking==false)
+						{
+							_whichCustomer = i;						
+							_touched = true;
+							return;
+						}
 					}
 			}			
 		}
@@ -94,13 +95,8 @@ package objects
 		 */
 		public function crashFull():void
 		{
-			this.visible=true;
-			this.rotation=deg2rad(270);
-			this.x-=15;
-			this.y+=50;
-			deleteTimer.start();
-			
-			
+			this.visible=true;			
+			deleteTimer.start();			
 		}
 		/**
 		 * rozbicie pustego (wracał od klienta)
@@ -116,5 +112,37 @@ package objects
 		{
 			this.visible=false;
 		}
+
+		public function get whichCustomer():uint
+		{
+			return _whichCustomer;
+		}
+
+		public function get touched():Boolean
+		{
+			return _touched;
+		}
+
+		public function get switchMugTime():Number
+		{
+			return _switchMugTime;
+		}
+
+		public function set whichCustomer(value:uint):void
+		{
+			_whichCustomer = value;
+		}
+
+		public function set touched(value:Boolean):void
+		{
+			_touched = value;
+		}
+
+		public function set switchMugTime(value:Number):void
+		{
+			_switchMugTime = value;
+		}
+
+
 	}
 }

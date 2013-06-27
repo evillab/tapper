@@ -12,6 +12,8 @@ package objects.customer
 		private var _type:uint;
 		private var _points:uint;
 		private var _xSpeed:uint;
+		private var _mugPosition:int;
+		private var _drinking:Boolean = false;
 		
 		public function Customer(type:uint)
 		{
@@ -46,6 +48,27 @@ package objects.customer
 		{
 			return _xSpeed;
 		}
+
+		public function get mugPosition():int
+		{
+			return _mugPosition;
+		}
+
+		public function get drinking():Boolean
+		{
+			return _drinking;
+		}
+
+		public function set mugPosition(value:int):void
+		{
+			_mugPosition = value;
+		}
+
+		public function set drinking(value:Boolean):void
+		{
+			_drinking = value;
+		}
+
 
 	}
 }
