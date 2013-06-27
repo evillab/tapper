@@ -5,6 +5,7 @@ package objects
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
 	import levels.Level1;
+
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -187,9 +188,25 @@ package objects
 		// przechwycenie kliknięcia w kran
 		private function tapTouched(e:TouchEvent):void
 		{
+			if(e.touches[0].phase==TouchPhase.BEGAN)
+			{	
+				tapContainer.x -=20;
+				tapContainer.y +=10;
+				tapContainer.rotation = -.5;
+			}	
+			else if(e.touches[0].phase==TouchPhase.ENDED)
+			{
+				tapContainer.x +=20;
+				tapContainer.y -=10;
+				tapContainer.rotation =0;
+			}
 						
 			if (e.touches[0].phase==TouchPhase.BEGAN || e.touches[0].phase == TouchPhase.ENDED) 
-				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));			
+			{
+				
+				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));
+					
+			}		
 		}
 
 		/**
