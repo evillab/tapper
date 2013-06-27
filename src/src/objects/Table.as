@@ -1,6 +1,6 @@
 package objects
 {	
-	import com.demonsters.debugger.MonsterDebugger;
+	
 	
 	import flash.utils.getTimer;
 	
@@ -44,12 +44,19 @@ package objects
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);			
 		}
 		
+		private function onAddedToStage():void
+		{			
+			drawTable();
+			drawTap();		
+		}
+		
 		public function createMug():void
 		{
 			var mug:Mug = new Mug();
 			mug.x = tableContainer.width-30;
 			_mugVector.push(mug);
 			mug.switchMugTime = getTimer()+100;
+			
 			addChild(mug);
 			
 			
@@ -60,6 +67,7 @@ package objects
 			var dawrCustomerNr:Number = (Math.floor(Math.random() *3));		
 			var customer:Customer = new Customer(dawrCustomerNr);			
 			_customerVector.push(customer);
+			customer.x=1;
 			addChild(customer);
 			
 		}
@@ -71,29 +79,53 @@ package objects
 			var custLength:uint = _customerVector.length;
 			for(var j:uint=0; j<custLength; j++)
 			{
-					
-				if( _customerVector[j].x >tableContainer.width-_customerVector[j].width)
-				{					
-					dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.CLIENT_TABLE_END, true)); //dispatch przed usunięciem!
-					return;
-				}
-				else
+				if (_customerVector[j].x<=0)
 				{
-				_customerVector[j].x+=((Utils.randomNumber(1,10)+_customerVector[j].xSpeed) /20);
+					deleteCustomer(j);
+					return;
+				}					
+				else	
+				{
+					if( _customerVector[j].x >tableContainer.width-_customerVector[j].width)					
+					{					
+						dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.CLIENT_TABLE_END, true)); //dispatch przed usunięciem!
+						return;
+					}
+					else
+					{
+						if (!_customerVector[j].drinking)
+						{
+							_customerVector[j].x+=((Utils.randomNumber(1,6)+_customerVector[j].xSpeed) /20);					
+						}
+						else
+						{
+							if (_customerVector[j].x>_customerVector[j].mugPosition)
+							{
+								_customerVector[j].x-=5;
+							}
+							else
+							{
+								_customerVector[j].drinking=false;
+							}
+						}
+					
+					}
 				}
 			}
+		
 			
 			var mugLength:uint = _mugVector.length;
 			for(var i:uint=0; i<mugLength; i++)
 			{
 				if (_mugVector[i].touched)
 				{
-					_customerVector[_mugVector[i].whichCustomer].x-=LevelsProperties.CUSTOMER_BACK_SPACE;
-					if (_customerVector[_mugVector[i].whichCustomer].x<=0)
-						deleteCustomer(_mugVector[i].whichCustomer);					
+											
+					_customerVector[_mugVector[i].whichCustomer].mugPosition = _customerVector[_mugVector[i].whichCustomer].x-LevelsProperties.CUSTOMER_BACK_SPACE; 
+					_customerVector[_mugVector[i].whichCustomer].drinking=true;
+
 					_mugVector[i].deleteMe(false);
 					_mugVector.splice(i,1);					
-					return;						
+					return;
 				}
 				else
 				{
@@ -107,7 +139,7 @@ package objects
 					else
 					{	
 						_mugVector[i].checkCollision(_customerVector);
-						_mugVector[i].x-=2;	
+						_mugVector[i].x-=3;	
 						if (getTimer()>=_mugVector[i].switchMugTime)						
 						{
 							_mugVector[i].scaleX*=-1;
@@ -117,6 +149,7 @@ package objects
 				}
 			}
 		}
+		
 		private function deleteCustomer(which:uint):void
 		{
 			removeChild(_customerVector[which]);
@@ -125,11 +158,7 @@ package objects
 		
 		
 
-		private function onAddedToStage():void
-		{
-			drawTable();
-			drawTap();
-		}
+
 		
 		// dodanie grafiki baru
 		private function drawTable():void
@@ -191,10 +220,8 @@ package objects
 			}
 						
 			if (e.touches[0].phase==TouchPhase.BEGAN || e.touches[0].phase == TouchPhase.ENDED) 
-			{
-				
-				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));
-					
+			{				
+				dispatchEvent(new CustomTouchEvent(CustomTouchEvent.TAP_TOUCHED,e.touches[0].phase , _tableNr, 0 , true));				
 			}		
 		}
 

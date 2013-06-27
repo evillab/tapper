@@ -16,9 +16,9 @@ package objects
 	public class Mug extends Sprite
 	{
 		private var deleteTimer:Timer = new Timer(500,1);
-		public var whichCustomer:uint;
-		public var touched:Boolean=false;
-		public var switchMugTime:Number=0;
+		private var _whichCustomer:uint;
+		private var _touched:Boolean=false;
+		private var _switchMugTime:Number=0;
 		
 		public function Mug():void
 		{
@@ -64,9 +64,12 @@ package objects
 			{				
 					if(Math.abs((customerVector[i].x+customerVector[i].width)-this.x)<4)
 					{
-						whichCustomer = i;
-						touched = true;
-						return;
+						if (customerVector[i].drinking==false)
+						{
+							_whichCustomer = i;						
+							_touched = true;
+							return;
+						}
 					}
 			}			
 		}
@@ -109,5 +112,37 @@ package objects
 		{
 			this.visible=false;
 		}
+
+		public function get whichCustomer():uint
+		{
+			return _whichCustomer;
+		}
+
+		public function get touched():Boolean
+		{
+			return _touched;
+		}
+
+		public function get switchMugTime():Number
+		{
+			return _switchMugTime;
+		}
+
+		public function set whichCustomer(value:uint):void
+		{
+			_whichCustomer = value;
+		}
+
+		public function set touched(value:Boolean):void
+		{
+			_touched = value;
+		}
+
+		public function set switchMugTime(value:Number):void
+		{
+			_switchMugTime = value;
+		}
+
+
 	}
 }
