@@ -12,8 +12,6 @@ package objects
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.utils.deg2rad;
-
 	
 	public class Mug extends Sprite
 	{
@@ -34,10 +32,10 @@ package objects
 		
 		private function drawMug():void
 		{
-			var mugImage:Image = new Image(Assets.getTexture("MugFull"));			
-			mugImage.x=-mugImage.width/2;
-			mugImage.y=-mugImage.height/2;
-			this.addChild(mugImage);
+			var mugFullImage:Image = new Image(Assets.getTexture("MugFull"));			
+			mugFullImage.x=-mugFullImage.width/2;
+			mugFullImage.y=-mugFullImage.height/2;
+			this.addChild(mugFullImage);
 			
 			deleteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, removeTimerMe);
 		}
@@ -94,13 +92,8 @@ package objects
 		 */
 		public function crashFull():void
 		{
-			this.visible=true;
-			this.rotation=deg2rad(270);
-			this.x-=15;
-			this.y+=50;
-			deleteTimer.start();
-			
-			
+			this.visible=true;			
+			deleteTimer.start();			
 		}
 		/**
 		 * rozbicie pustego (wracał od klienta)

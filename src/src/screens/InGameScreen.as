@@ -8,6 +8,8 @@ package screens
 	import levels.Level1;
 	import levels.LevelsProperties;
 	
+	import resources.Utils;
+	
 	import score.Score;
 	
 	import starling.display.Sprite;
@@ -20,6 +22,7 @@ package screens
 		private var mugFillStartTime:Number;
 		private var _currentTap:uint;
 		private var _scoreCounter:Score;
+		private var _customerTime:Number=0;
 		
 		public function InGameScreen()
 		{
@@ -28,7 +31,8 @@ package screens
 		
 		private function onAddedToStage():void
 		{
-			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);			
+			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
+			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
 			addScoreCounter();
 			level1 = new Level1();
 			addChild(level1);	
@@ -69,12 +73,23 @@ package screens
 		{
 			if(level1.bartender.canRunAlongTable)
 				level1.bartender.x --;
+			checkToCreateCustomer();
 			for(var i:uint =0; i< LevelsProperties.numberOfTables ; i++)
 			{
 				level1.tables[i].onEnterFrame();
 			}
+			
+			
 		}
-		
+		private function checkToCreateCustomer():void
+		{			
+			if (getTimer()>_customerTime)
+			{
+				_customerTime = getTimer() + (Utils.randomNumber(LevelsProperties.customerRate[0],LevelsProperties.customerRate[1])*100);
+				level1.tables[(Math.floor(Math.random() *LevelsProperties.numberOfTables))].createCustomer();
+			}
+			
+		}
 		private function tapTouched(e:CustomTouchEvent):void
 		{
 			if(e.phase==TouchPhase.BEGAN)

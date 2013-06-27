@@ -7,7 +7,7 @@ package objects
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
 	
-	import levels.Level1;
+	
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -37,20 +37,11 @@ package objects
 		
 		
 		
-		private var _customerTime:Number=0;
-		
-		
-		
 		public function Table(_width:Number , _height:Number):void
 		{
 			_tableWidth = _width;
-			_tableHeight = _height;
-			
-			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
-			_customerTime = getTimer() + (Utils.randomNumber(15,30)*100);
-			
-			
-			
+			_tableHeight = _height;			
+			this.addEventListener(Event.ADDED_TO_STAGE , onAddedToStage);			
 		}
 		
 		public function createMug():void
@@ -64,7 +55,7 @@ package objects
 			
 		}
 		
-		private function createCustomer():void
+		public function createCustomer():void
 		{
 			var dawrCustomerNr:Number = (Math.floor(Math.random() *3));		
 			var customer:Customer = new Customer(dawrCustomerNr);			
@@ -88,10 +79,9 @@ package objects
 				}
 				else
 				{
-				_customerVector[j].x+=((Utils.randomNumber(1,6)+_customerVector[j].xSpeed) /20);
+				_customerVector[j].x+=((Utils.randomNumber(1,10)+_customerVector[j].xSpeed) /20);
 				}
 			}
-			checkToCreateCustomer();
 			
 			var mugLength:uint = _mugVector.length;
 			for(var i:uint=0; i<mugLength; i++)
@@ -134,17 +124,7 @@ package objects
 		}
 		
 		
-		private function checkToCreateCustomer():void
-		{
-			
-			
-			if (getTimer()>_customerTime)
-			{
-				_customerTime = getTimer() + (Utils.randomNumber(LevelsProperties.customerRate[0],LevelsProperties.customerRate[1])*100);
-				createCustomer();
-			}
-			
-		}
+
 		private function onAddedToStage():void
 		{
 			drawTable();
