@@ -148,7 +148,7 @@ package objects
 			tableContainer = new Sprite();
 			
 			var quad:Quad = new Quad(_tableWidth, _tableHeight , 0x00ff00);
-			quad.alpha = .6;
+			quad.alpha = 0;
 			tableContainer.addChild(quad);
 			
 			addChild(tableContainer);
