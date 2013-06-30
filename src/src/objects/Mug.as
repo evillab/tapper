@@ -27,6 +27,7 @@ package objects
 		
 		private function onAddedToStage():void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			drawMug();
 		}
 		
