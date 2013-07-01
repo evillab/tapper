@@ -83,6 +83,8 @@ package objects
 				trace("ROZJEBAŁEM PEŁNY KUFEL!");
 			else if(whatKind==GameLostEvent.CLIENT_TABLE_END)
 				trace("WKURWIONY KLIENT!");
+			else if(whatKind==GameLostEvent.EMPTY_MUG_TABLE_END)
+				trace("NIE ZŁAPAŁEM PUSTEGO KUFLA!");
 		}
 
 		public function get canRunAlongTable():Boolean

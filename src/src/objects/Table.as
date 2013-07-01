@@ -7,7 +7,6 @@ package objects
 	import events.CustomTouchEvent;
 	import events.GameLostEvent;
 	
-
 	import levels.LevelsProperties;
 	
 	import objects.customer.Customer;
@@ -31,9 +30,11 @@ package objects
 		private var tapContainer:Sprite;
 		private var _tableNr:uint;
 		private var _mugVector:Vector.<Mug> = new Vector.<Mug>;
+		private var _emptyMugVector:Vector.<EmptyMug> = new Vector.<EmptyMug>;
 		private var _customerVector:Vector.<Customer> = new Vector.<Customer>;
 		private var _tableWidth:Number;
 		private var _tableHeight:Number;
+		private var _bartender:Bartender;
 		
 		
 		
@@ -105,6 +106,7 @@ package objects
 							}
 							else
 							{
+								createEmptyMug(_customerVector[j].x);
 								_customerVector[j].drinking=false;
 							}
 						}
@@ -148,6 +150,47 @@ package objects
 					}
 				}
 			}
+			var emptyMugLength:uint = _emptyMugVector.length;
+			
+			for(var k:uint=0; k<emptyMugLength; k++)
+			{
+				if (_emptyMugVector[k].x<=tableContainer.width)
+				{
+					if(_emptyMugVector[k].touched==false)
+					{
+						_emptyMugVector[k].checkCollision(_bartender);
+						_emptyMugVector[k].x++;
+					}
+					else
+					{
+						deleteEmptyMug(k);
+						return
+					}
+				}
+				else
+				{
+					dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.EMPTY_MUG_TABLE_END, true)); //dispatch przed usunięciem!
+					return;
+				}
+			}
+
+		}
+		
+		private function deleteEmptyMug(which:uint):void
+		{
+			removeChild(_emptyMugVector[which]);
+			_emptyMugVector.splice(which,1);
+		}
+		
+		
+		private function createEmptyMug(posX:Number):void
+		{
+			var emptyMug:EmptyMug = new EmptyMug();
+			emptyMug.x = posX+25;
+			_emptyMugVector.push(emptyMug);			
+			
+			addChild(emptyMug);
+			
 		}
 		
 		private function deleteCustomer(which:uint):void
@@ -232,6 +275,9 @@ package objects
 		{
 			_tableNr = value;
 		}
-
+		public function set bartender(value:Bartender):void
+		{
+			_bartender = value;
+		}
 	}
 }

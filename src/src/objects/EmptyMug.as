@@ -2,6 +2,8 @@ package objects
 {
 	import events.GameLostEvent;
 	
+	import objects.customer.Customer;
+	
 	import resources.Assets;
 	
 	import starling.display.Image;
@@ -10,6 +12,7 @@ package objects
 	
 	public class EmptyMug extends Sprite
 	{
+		private var _touched:Boolean = false;
 		public function EmptyMug()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -38,5 +41,21 @@ package objects
 			this.parent.removeChild(this);
 			
 		}
+		public function checkCollision(bartender:Bartender):void
+		{
+	
+			if(Math.abs(bartender.x-this.x)<60)
+			{
+				_touched = true;
+			}
+						
+		}
+
+		public function get touched():Boolean
+		{
+			return _touched;
+		}
+
+		
 	}
 }

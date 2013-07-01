@@ -8,6 +8,7 @@ package events
 		//
 		public static const MUG_TABLE_END:String = "mug_table_end"; // kufel poleciał do końca stołu i się rozbił
 		public static const CLIENT_TABLE_END:String = "client_table_end";
+		public static const EMPTY_MUG_TABLE_END:String = "empty_mug_table_end";
 		
 		public var lostReason:String;
 		

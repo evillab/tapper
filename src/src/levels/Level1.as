@@ -30,9 +30,10 @@ package levels
 		private function onAddedToStage():void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE , onAddedToStage);
-			drawBackground();
+			drawBackground();			
+			addBartender();
 			addTables();			
-			addBartender();			
+						
 		}
 		
 		private function drawBackground():void
@@ -57,6 +58,7 @@ package levels
 			{	
 				var table:Table = new Table(LevelsProperties.tablesWidth[i], 35 );
 				table.tableNr = i;
+				table.bartender = _bartender;
 				table.x = LevelsProperties.tablesPositionX[i];
 				table.y = LevelsProperties.tablesPositionY[i];
 				addChild(table);
