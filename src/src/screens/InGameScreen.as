@@ -1,5 +1,7 @@
 package screens
 {
+	import com.demonsters.debugger.MonsterDebugger;
+	
 	import flash.utils.getTimer;
 	
 	import events.CustomTouchEvent;
@@ -125,6 +127,7 @@ package screens
 		{
 			if(e.phase == TouchPhase.BEGAN)
 			{	
+				level1.bartender.tableNum = e.which;
 				level1.bartender.y = LevelsProperties.tablesPositionY[e.which];
 				level1.bartender.x = LevelsProperties.bartenderXPositionNearTable;
 				level1.bartender.canRunAlongTable = true;

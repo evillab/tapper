@@ -5,7 +5,7 @@ package levels
 		// parametry wspólne dla wszystkich leveli
 		public static const SCORE_COUNTER_X:Number = 700;
 		public static const MUG_FILL_TIME:uint = 500; // czas nalewania kufla w milisekundach
-		public static const CUSTOMER_BACK_SPACE:uint=80;
+		public static const CUSTOMER_BACK_SPACE:uint=100;
 		
 		// LEVEL1
 		public static const numberOfTables:uint = 3;

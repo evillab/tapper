@@ -21,6 +21,8 @@ package objects
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import objects.mug.EmptyMug;
+	import objects.mug.FullMug;
 	
 	
 	
@@ -29,7 +31,7 @@ package objects
 		private var tableContainer:Sprite;
 		private var tapContainer:Sprite;
 		private var _tableNr:uint;
-		private var _mugVector:Vector.<Mug> = new Vector.<Mug>;
+		private var _mugVector:Vector.<FullMug> = new Vector.<FullMug>;
 		private var _emptyMugVector:Vector.<EmptyMug> = new Vector.<EmptyMug>;
 		private var _customerVector:Vector.<Customer> = new Vector.<Customer>;
 		private var _tableWidth:Number;
@@ -51,32 +53,15 @@ package objects
 			drawTap();		
 		}
 		
-		public function createMug():void
-		{
-			var mug:Mug = new Mug();
-			mug.x = tableContainer.width-30;
-			_mugVector.push(mug);
-			mug.switchMugTime = getTimer()+100;
-			
-			addChild(mug);
-			
-			
-		}
-		
-		public function createCustomer():void
-		{
-			var dawrCustomerNr:Number = (Math.floor(Math.random() *3));		
-			var customer:Customer = new Customer(dawrCustomerNr);			
-			_customerVector.push(customer);
-			customer.x=1;
-			addChild(customer);
-			
-		}
 		
 		public function onEnterFrame():void
+		{		
+			enterFrameCustomer();
+			enterFrameMug();			
+			enterFrameEmptyMug();
+		}
+		private function enterFrameCustomer():void
 		{
-			
-			
 			var custLength:uint = _customerVector.length;
 			for(var j:uint=0; j<custLength; j++)
 			{
@@ -110,28 +95,44 @@ package objects
 								_customerVector[j].drinking=false;
 							}
 						}
-					
+						
 					}
 				}
 			}
-		
+		}
+		public function createCustomer():void
+		{
+			var dawrCustomerNr:Number = (Math.floor(Math.random() *3));		
+			var customer:Customer = new Customer(dawrCustomerNr);			
+			_customerVector.push(customer);
+			customer.x=1;
+			addChild(customer);
 			
+		}
+		private function deleteCustomer(which:uint):void
+		{
+			removeChild(_customerVector[which]);
+			_customerVector.splice(which,1);
+		}
+		
+		private function enterFrameMug():void
+		{
 			var mugLength:uint = _mugVector.length;
 			for(var i:uint=0; i<mugLength; i++)
 			{
 				if (_mugVector[i].touched)
 				{
-											
+					
 					_customerVector[_mugVector[i].whichCustomer].mugPosition = _customerVector[_mugVector[i].whichCustomer].x-LevelsProperties.CUSTOMER_BACK_SPACE; 
 					_customerVector[_mugVector[i].whichCustomer].drinking=true;
-
+					
 					_mugVector[i].deleteMe(false);
 					_mugVector.splice(i,1);					
 					return;
 				}
 				else
 				{
-				
+					
 					if(_mugVector[i].x<=0)
 					{					
 						_mugVector[i].crashFull();	
@@ -150,6 +151,20 @@ package objects
 					}
 				}
 			}
+		}
+		public function createMug():void
+		{
+			var mug:FullMug = new FullMug();
+			mug.x = tableContainer.width-30;
+			_mugVector.push(mug);
+			mug.switchMugTime = getTimer()+100;
+			
+			addChild(mug);
+			
+			
+		}
+		private function enterFrameEmptyMug():void
+		{
 			var emptyMugLength:uint = _emptyMugVector.length;
 			
 			for(var k:uint=0; k<emptyMugLength; k++)
@@ -160,6 +175,11 @@ package objects
 					{
 						_emptyMugVector[k].checkCollision(_bartender);
 						_emptyMugVector[k].x++;
+						if (getTimer()>=_emptyMugVector[k].switchMugTime)						
+						{
+							_emptyMugVector[k].scaleX*=-1;
+							_emptyMugVector[k].switchMugTime = getTimer()+150;
+						}
 					}
 					else
 					{
@@ -168,39 +188,28 @@ package objects
 					}
 				}
 				else
-				{
-					dispatchEvent(new GameLostEvent(GameLostEvent.LOST_EVENT,GameLostEvent.EMPTY_MUG_TABLE_END, true)); //dispatch przed usunięciem!
+				{					
+					_emptyMugVector[k].deleteMe(true);
 					return;
 				}
 			}
-
 		}
-		
-		private function deleteEmptyMug(which:uint):void
-		{
-			removeChild(_emptyMugVector[which]);
-			_emptyMugVector.splice(which,1);
-		}
-		
 		
 		private function createEmptyMug(posX:Number):void
 		{
-			var emptyMug:EmptyMug = new EmptyMug();
+			var emptyMug:EmptyMug = new EmptyMug(_tableNr);
 			emptyMug.x = posX+25;
 			_emptyMugVector.push(emptyMug);			
 			
 			addChild(emptyMug);
 			
 		}
-		
-		private function deleteCustomer(which:uint):void
+		private function deleteEmptyMug(which:uint):void
 		{
-			removeChild(_customerVector[which]);
-			_customerVector.splice(which,1);
+			removeChild(_emptyMugVector[which]);
+			_emptyMugVector.splice(which,1);
 		}
 		
-		
-
 
 		
 		// dodanie grafiki baru

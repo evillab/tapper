@@ -12,6 +12,7 @@ package objects
 	{
 		public static const MUG_FULL:String = "mug_full"; //już pełen kufel
 		private var _canRunAlongTable:Boolean = false;
+		private var _tableNum:uint;
 		
 		
 		public function Bartender():void
@@ -95,6 +96,16 @@ package objects
 		public function set canRunAlongTable(value:Boolean):void
 		{
 			_canRunAlongTable = value;
+		}
+
+		public function get tableNum():uint
+		{
+			return _tableNum;
+		}
+
+		public function set tableNum(value:uint):void
+		{
+			_tableNum = value;
 		}
 	
 
